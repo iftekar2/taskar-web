@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "taskar-web",
+  "name": "Taskar Web",
   "icons": [
     {
       "src": "favicon.ico",
