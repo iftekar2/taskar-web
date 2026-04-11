@@ -3,11 +3,13 @@ import HomePage from "./home-page";
 import Footer from "./footer";
 import About from "./about";
 import SignupPage from "./signup-page";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <div className="App">
       <MainLayout>
+        <Toaster position="top-center" reverseOrder={false} />
         <HomePage />
         <SignupPage />
         <About />

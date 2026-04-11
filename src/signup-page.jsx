@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { supabase } from "./supabase-client";
+import toast from "react-hot-toast";
 
 function SignupPage() {
   const [newUser, setNewUser] = useState({
@@ -18,11 +19,38 @@ function SignupPage() {
 
     if (error) {
       console.error("Error adding user:", error);
-      alert("Failed to add user. Please try again.");
+
+      toast.error(`Failed to add user. Please try again.`, {
+        style: {
+          borderRadius: "10px",
+          background: "white",
+          color: "black",
+          border: "1px solid rgba(255,255,255,0.1)",
+        },
+
+        iconTheme: {
+          primary: "red",
+          secondary: "white",
+        },
+      });
+
       return;
     }
 
-    alert(`Thank you ${newUser.first_name}! You have joined the waitlist.`);
+    toast.success(`Welcome to the waitlist, ${newUser.first_name}!`, {
+      style: {
+        borderRadius: "10px",
+        background: "white",
+        color: "black",
+        border: "1px solid rgba(255,255,255,0.1)",
+      },
+
+      iconTheme: {
+        primary: "green",
+        secondary: "white",
+      },
+    });
+
     setNewUser({
       first_name: "",
       last_name: "",
