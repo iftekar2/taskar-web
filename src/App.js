@@ -2,12 +2,14 @@ import styled from "styled-components";
 import HomePage from "./home-page";
 import Footer from "./footer";
 import About from "./about";
+import SignupPage from "./signup-page";
 
 function App() {
   return (
     <div className="App">
       <MainLayout>
         <HomePage />
+        <SignupPage />
         <About />
         <Footer />
       </MainLayout>
