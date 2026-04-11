@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import HomePage from "./home-page";
+import Footer from "./footer";
 
 function App() {
   return (
     <div className="App">
       <MainLayout>
         <HomePage />
+
+        <Footer />
       </MainLayout>
     </div>
   );
