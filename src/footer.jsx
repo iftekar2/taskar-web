@@ -5,7 +5,7 @@ function Footer() {
   return (
     <FooterContainer>
       <FooterText>
-        <p>TASKER © 2026. All rights reserved. </p>
+        <p>TASKAR © 2026. All rights reserved. </p>
       </FooterText>
     </FooterContainer>
   );
