@@ -12,15 +12,42 @@ function SignupPage() {
     user_type: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [cooldownUntil, setCooldownUntil] = useState(0);
+
+  const isCooldownActive = Date.now() < cooldownUntil;
+  const isDisabled = isSubmitting || isCooldownActive;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isDisabled) return;
 
-    const { error } = await supabase.from("users").insert(newUser).single();
+    setIsSubmitting(true);
 
-    if (error) {
-      console.error("Error adding user:", error);
+    try {
+      const { error } = await supabase.from("users").insert(newUser).single();
 
-      toast.error(`Failed to add user. Please try again.`, {
+      if (error) {
+        console.error("Error adding user:", error);
+
+        toast.error(`Failed to add user. Please try again.`, {
+          style: {
+            borderRadius: "10px",
+            background: "white",
+            color: "black",
+            border: "1px solid rgba(255,255,255,0.1)",
+          },
+
+          iconTheme: {
+            primary: "red",
+            secondary: "white",
+          },
+        });
+
+        return;
+      }
+
+      toast.success(`Welcome to the waitlist, ${newUser.first_name}!`, {
         style: {
           borderRadius: "10px",
           background: "white",
@@ -29,35 +56,22 @@ function SignupPage() {
         },
 
         iconTheme: {
-          primary: "red",
+          primary: "green",
           secondary: "white",
         },
       });
 
-      return;
+      setNewUser({
+        first_name: "",
+        last_name: "",
+        email: "",
+        location: "",
+        user_type: "",
+      });
+    } finally {
+      setIsSubmitting(false);
+      setCooldownUntil(Date.now() + 3000);
     }
-
-    toast.success(`Welcome to the waitlist, ${newUser.first_name}!`, {
-      style: {
-        borderRadius: "10px",
-        background: "white",
-        color: "black",
-        border: "1px solid rgba(255,255,255,0.1)",
-      },
-
-      iconTheme: {
-        primary: "green",
-        secondary: "white",
-      },
-    });
-
-    setNewUser({
-      first_name: "",
-      last_name: "",
-      email: "",
-      location: "",
-      user_type: "",
-    });
   };
 
   const US_STATES = [
