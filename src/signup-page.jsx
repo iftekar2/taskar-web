@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { supabase } from "./supabase-client";
 import toast from "react-hot-toast";
+//import WaitlistSignupMessage from "./waitlist-signup-message";
 
 function SignupPage() {
   const [newUser, setNewUser] = useState({
@@ -14,6 +15,8 @@ function SignupPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cooldownUntil, setCooldownUntil] = useState(0);
+  //const [thankYouOpen, setThankYouOpen] = useState(false);
+  //const [thankYouName, setThankYouName] = useState("");
 
   const isCooldownActive = Date.now() < cooldownUntil;
   const isDisabled = isSubmitting || isCooldownActive;
@@ -46,6 +49,9 @@ function SignupPage() {
 
         return;
       }
+
+      //setThankYouName(newUser.first_name);
+      //setThankYouOpen(true);
 
       toast.success(`Welcome to the waitlist, ${newUser.first_name}!`, {
         style: {
@@ -134,6 +140,11 @@ function SignupPage() {
 
   return (
     <SignupSection>
+      {/* <WaitlistSignupMessage
+        isOpen={thankYouOpen}
+        onClose={() => setThankYouOpen(false)}
+        firstName={thankYouName}
+      /> */}
       <SignupCard as="form" onSubmit={handleSubmit}>
         <Title>Join Taskar</Title>
         <Row>
